@@ -20,7 +20,8 @@ python itemknn_test.py
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 공통 패치 (모든 실행 파일 맨 위) PyTorch 2.6 이상에서는 RecBole이 저장한 체크포인트를 불러올 때 weights_only 오류가 나서, 아래 3줄을 넣었습니다.
 
-python
 import torch
+
 _orig_load = torch.load
+
 torch.load = lambda *a, **k: _orig_load(*a, **{**k, "weights_only": False})
