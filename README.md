@@ -21,14 +21,14 @@ python itemknn_test.py
 # 4) BPR 수정 사항
 - 과제는 reg_lambda를 바꿔가며 비교하라고 하지만, RecBole의 기본 BPR에는 이 파라미터가 없습니다. 그래서 recbole/model/general_recommender/bpr.py에 아래 변경을 넣었습니다 (배치에 쓰인 임베딩에 RecBole의 EmbLoss 기반 정규화 항을 더하는 방식)
 
-- import
+- import: 
   from recbole.model.loss import BPRLoss, EmbLoss
   
-- __init__ 안, self.loss = BPRLoss() 바로 아래
+- __init__ 안, self.loss = BPRLoss() 바로 아래: 
   self.reg_lambda = config["reg_lambda"] if "reg_lambda" in config else 0.0
   self.reg_loss = EmbLoss()
   
-- calculate_loss의 끝
+- calculate_loss의 끝: 
   loss = self.loss(pos_item_score, neg_item_score)
   loss = loss + self.reg_lambda * self.reg_loss(user_e, pos_e, neg_e)
   return loss
